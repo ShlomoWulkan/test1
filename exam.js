@@ -275,7 +275,6 @@ let militaryUnit = {
   const Mission1 = (militaryUnit) => {
       return `${militaryUnit.commandStructure.chiefOfStaff.rank} ${militaryUnit.commandStructure.chiefOfStaff.name} ${militaryUnit.commandStructure.chiefOfStaff.contact.phone}`;
   }
-Mission1(militaryUnit);
   const Mission2 = (militaryUnit) => {
       sum = 0;
       militaryUnit.personnel.forEach(person => {
@@ -283,7 +282,6 @@ Mission1(militaryUnit);
       });
       return `${sum} soldiers`;
   }
-Mission2(militaryUnit)
 
   const Mission3 = (NewDeployment, militaryUnit) => {
     oldDeployment = {};
@@ -293,17 +291,30 @@ Mission2(militaryUnit)
     militaryUnit.currentDeployment = NewDeployment;
     return militaryUnit;
   }
-Mission3(NewDeployment, militaryUnit);
 
-  const Mission4 = (militaryUnit) => {
+  const Mission4 = (firearmObject, militaryUnit) => {
+    isfirearm = false;
+    militaryUnit.equipment.firearms.forEach(firearm => {
+      if (firearm.status === firearmObject.status && firearmObject.type === firearm.type) {
+        firearm.quantity += firearmObject.quantity;
+        isfirearm = true
+        return militaryUnit;
+      }
+    })
+    if (!isfirearm) {
+      militaryUnit.equipment.firearms.push(firearmObject);
+    }
+    return militaryUnit;
   }
-Mission4(militaryUnit);
 
   const Mission5 = (militaryUnit) => {
-      
+    sum = 0;
+    militaryUnit.trainingPrograms.forEach(program =>  {
+      sum += program.duration;
+    });
+      return `${sum} weeks`;
   }
-Mission5(militaryUnit);
-  exports = {
+  module.exports = {
     Mission1,
     Mission2,
     Mission3,
