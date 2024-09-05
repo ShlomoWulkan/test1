@@ -273,13 +273,13 @@ let militaryUnit = {
   };
 
   const Mission1 = (militaryUnit) => {
-      return `${militaryUnit.commandStructure.chiefOfStaff.rank} ${militaryUnit.commandStructure.chiefOfStaff.name} ${militaryUnit.commandStructure.chiefOfStaff.contact.phone}`;
+      return `role: ${militaryUnit.commandStructure.chiefOfStaff.rank} 
+name: ${militaryUnit.commandStructure.chiefOfStaff.name} 
+phone: ${militaryUnit.commandStructure.chiefOfStaff.contact.phone}`;
   }
+
   const Mission2 = (militaryUnit) => {
-      sum = 0;
-      militaryUnit.personnel.forEach(person => {
-        sum ++;
-      });
+      sum = militaryUnit.personnel.length;    
       return `${sum} soldiers`;
   }
 
@@ -287,6 +287,7 @@ let militaryUnit = {
     oldDeployment = {};
     oldDeployment["eventDate"] = militaryUnit.currentDeployment.estimatedEndDate;
     oldDeployment["eventDescription"] = militaryUnit.currentDeployment.mission;
+    oldDeployment["eventDescription"] += " in " + militaryUnit.currentDeployment.location;
     militaryUnit.history.push(oldDeployment);
     militaryUnit.currentDeployment = NewDeployment;
     return militaryUnit;
@@ -314,6 +315,7 @@ let militaryUnit = {
     });
       return `${sum} weeks`;
   }
+  
   module.exports = {
     Mission1,
     Mission2,
